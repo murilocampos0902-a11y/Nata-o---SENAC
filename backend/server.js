@@ -7,10 +7,13 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password : "",
-    database : "natacao"
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password : process.env.DB_PASSWORD || "",
+    database : process.env.DB.NAME || "natacao",
+    port: process.env.DB_PORT || 3306,
+    ssl: process.env.DB_HOST ? {
+        rejectUnauthorized: false} : null
 });
 
 db.connect((erro) => {
@@ -20,6 +23,23 @@ db.connect((erro) => {
         return;
     }
     console.log("Conectado com sucesso");
+    const criartabelaSQL = `
+    CREATE TABLE IF NOT EXISTS alunos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone INT NOT NULL,
+    nivel VARCHAR(50) NOT NULL,
+    horario VARCHAR(50) NOT NULL,
+    ativo BOOLEAN DEFAULT TRUE
+    );
+    `;
+    db.query(criartabelaSQL, (erroTabela) => {
+        if (erroTabela) {
+            console.log("Erro de verificação ou criação da tabela", erroTabela);
+        } else {
+            console.log("Tabela pronta para uso");
+        }
+    })
 });
 
 
@@ -170,9 +190,9 @@ app.post ("/admin", (req,res) => {
 });
 
 
-
-app.listen(3000, () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
     console.log("Servidor rodando em:")
-    console.log("http://localhost:3000")
+    console.log(`Porta ${PORT}`)
 })
 
