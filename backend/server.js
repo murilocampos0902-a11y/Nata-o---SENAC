@@ -24,7 +24,7 @@ db.connect((erro) => {
     }
     console.log("Conectado com sucesso");
     const criarTabelaSQL = `
-        CREATE TABLE IF NOT EXISTS alunos (
+        CREATE TABLE IF NOT EXISTS alunos1 (
             id INT AUTO_INCREMENT PRIMARY KEY,
             nome VARCHAR(67) NOT NULL,
             idade INT NOT NULL,
@@ -67,7 +67,7 @@ app.post("/alunos", (req,res) => {
             })
         }
  
-        const verificaSQL = "SELECT * FROM alunos WHERE nome = ?";
+        const verificaSQL = "SELECT * FROM alunos1 WHERE nome = ?";
         db.query(verificaSQL, [nome],
             (erro, resultado) => {
                 if(erro) {
@@ -78,7 +78,7 @@ app.post("/alunos", (req,res) => {
                         erro: "Já existe este nome cadastrado no banco"
                     })
                 }
-                const inserirSQL = `INSERT INTO alunos (nome, idade, telefone, nivel, horario) VALUES (?, ?, ?, ?, ?)`;
+                const inserirSQL = `INSERT INTO alunos1 (nome, idade, telefone, nivel, horario) VALUES (?, ?, ?, ?, ?)`;
                 db.query (inserirSQL, [nome, idade, telefone, nivel, horario], (erro, resultado) => {
                     if (erro) {
                         return res.status(500).json(erro);
@@ -103,7 +103,7 @@ app.post("/alunos", (req,res) => {
  
     app.delete("/alunos/:id", (req,res) => {
         const id = req.params.id;
-        db.query( "DELETE FROM alunos WHERE id = ?", [id], (erro, resultado) => {
+        db.query( "DELETE FROM alunos1 WHERE id = ?", [id], (erro, resultado) => {
             if(erro) {
                 return res.status(500).json(erro);
             } if  (resultado.affectedRows === 0) {
@@ -119,7 +119,7 @@ app.post("/alunos", (req,res) => {
  
     app.put("/alunos/:id", (req,res) => {
         const id = req.params.id;
-        db.query("SELECT ativo FROM alunos WHERE id = ?", [id], (erro, resultado) => {
+        db.query("SELECT ativo FROM alunos1 WHERE id = ?", [id], (erro, resultado) => {
             if (erro) {
                 return res.status(500).json(erro);
             }
@@ -130,7 +130,7 @@ app.post("/alunos", (req,res) => {
             }
             const novoStatus =
             resultado[0].ativo ? 0 : 1;
-            db.query("UPDATE alunos SET ativo = ? WHERE id = ?", [novoStatus, id], (erro) => {
+            db.query("UPDATE alunos1 SET ativo = ? WHERE id = ?", [novoStatus, id], (erro) => {
                 if(erro) {
                     return res.status(500).json(erro);
                 }
