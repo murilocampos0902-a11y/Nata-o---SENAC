@@ -176,10 +176,10 @@ app.post("/alunos", (req,res) => {
             erro: `Senha incorreta. Faltam ${3-incorretas} até o bloqueio do sistema.`
         });
     });
-    port = process.env.PORT || 3000;
-    app.listen(port, () => {
+    PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
         console.log("Servidor rodando em: ")
-        console.log(`porta67${port}`)
+        console.log(`porta67${PORT}`)
     })
  
  
