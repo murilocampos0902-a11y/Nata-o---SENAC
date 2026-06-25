@@ -1,5 +1,5 @@
 const API = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-? "http://localhost:3000" : "https://site-natacao-eb0s.onrender.com";
+? "http://localhost:3000" : "https://natacao-senac-0n3x.onrender.com";
 
 async function cadastrarAluno(event) {
     event.preventDefault();
