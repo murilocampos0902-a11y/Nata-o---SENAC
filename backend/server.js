@@ -79,7 +79,7 @@ app.post("/alunos", (req,res) => {
                     })
                 }
                 const inserirSQL = `INSERT INTO alunos (nome, idade, telefone, nivel, horario) VALUES (?, ?, ?, ?, ?)`;
-                db.query (inserirSQL, [nome, idade, nivel, horario], (erro, resultado) => {
+                db.query (inserirSQL, [nome, idade, telefone, nivel, horario], (erro, resultado) => {
                     if (erro) {
                         return res.status(500).json(erro);
                     }
