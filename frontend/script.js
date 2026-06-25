@@ -5,9 +5,9 @@ async function cadastrarAluno(event) {
     event.preventDefault();
     const nome = document.getElementById("nome").value;
     const idade = Number(document.getElementById("idade").value);
+    const telefone = Number(document.getElementById("telefone").value);
     const nivel = document.getElementById("nivel").value;
     const horario = document.getElementById("horario").value;
-    const telefone = Number(document.getElementById("telefone").value);
     const novoAluno = {nome, idade, nivel, horario, telefone};
 
     try {
